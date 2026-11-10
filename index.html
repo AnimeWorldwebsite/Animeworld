@@ -1,223 +1,247 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anime World</title>
-<style>
-    .card img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  object-position: center;
-  image-rendering: auto;
-  display: block;
-}
+<title>ANIME WORLD</title>
 
-.card {
-  overflow: hidden;
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#101018;color:white;
+ font-family:Arial,sans-serif;
 }
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+header{
+ background:#191925;padding:20px;text-align:center;
+ border-bottom:2px solid #8b4cff;
 }
-body {
-  background: #100d18;
-  color: white;
-  font-family: Arial, sans-serif;
+header h1{margin:0;color:#b98aff}
+header p{color:#aaa;margin-bottom:0}
+.container{padding:18px;max-width:1100px;margin:auto}
+#searchInput{
+ width:100%;padding:15px;border:1px solid #555;
+ border-radius:10px;background:#20202d;color:white;
+ font-size:16px;margin-bottom:20px;
 }
-header {
-  background: #1c142b;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+h2{color:#c49aff}
+.anime-list{
+ display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(145px,1fr));
+ gap:15px;
 }
-.logo {
-  color: #c084fc;
-  font-size: 25px;
-  font-weight: bold;
+.card{
+ background:#20202d;border-radius:12px;overflow:hidden;
+ cursor:pointer;border:1px solid #333;
+ transition:.2s;
 }
-nav a {
-  color: white;
-  text-decoration: yes;
-  margin-left: 12px;
+.card:active{transform:scale(.97)}
+.poster{
+ height:190px;display:flex;align-items:center;
+ justify-content:center;text-align:center;
+ padding:12px;font-size:23px;font-weight:bold;
+ background:linear-gradient(145deg,#552b91,#17172c);
 }
-.hero {
-  padding: 35px 20px;
-  background: linear-gradient(120deg,#32145b,#171020);
+.card h3{font-size:15px;margin:10px}
+.card p{font-size:12px;color:#bbb;margin:10px}
+.tag{color:#c49aff!important}
+button{
+ background:#8b4cff;color:white;border:0;
+ border-radius:8px;padding:12px 16px;
+ cursor:pointer;font-size:14px;
 }
-.hero h1 {
-  font-size: 30px;
-  margin-bottom: 10px;
+button:hover{background:#7135d6}
+#details{
+ display:none;background:#20202d;padding:18px;
+ border-radius:12px;margin-top:25px;
 }
-.hero p {
-  color: #ccc;
+#details h2{margin-top:0}
+.episode{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px;
+ background:#303040;padding:12px;
+ border-radius:8px;margin:10px 0;
 }
-.search {
-  width: 90%;
-  padding: 13px;
-  margin: 20px 5%;
-  border: 1px solid #7044a8;
-  border-radius: 10px;
-  background: #21182d;
-  color: white;
+video{width:100%;margin-top:15px;background:black}
+#videoArea{display:none;margin-top:20px}
+input[type=url]{
+ width:100%;padding:13px;margin:10px 0;
+ background:#111;color:white;border:1px solid #555;
+ border-radius:8px;
 }
-h2 {
-  margin: 10px 20px;
-}
-.anime-list {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 15px;
-  padding: 15px;
-}
-.card {
-  background: #21182d;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.card img {
-  width: 100%;
-  height: 190px;
-  object-fit: cover;
-}
-.card h3 {
-  padding: 10px;
-  font-size: 15px;
-}
-.card p {
-  padding: 0 10px 12px;
-  color: #c084fc;
-  font-size: 12px;
-}#searchInput {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  padding: 14px 16px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: 2px solid #8b5cf6;
-  background: #181824;
-  color: white;
-  outline: none;
-  display: block;
-}
+footer{text-align:center;padding:25px;color:#888}
 </style>
 </head>
+
 <body>
+
 <header>
-  <div class="logo">ANIME WORLD Rahuluckyash</div>
-  <nav><a href="#">Home</a></nav>
+<h1>ANIME WORLD</h1>
+<p>Your Anime Destination ❤️</p>
 </header>
-<section class="hero">
-  <h1>Welcome to Anime World</h1>
-  <p>Your favourite anime destination!</p>
-</section>
-<input type="text" id="searchInput" placeholder="Search Anime..." />
 
-<h2>Latest Anime</h2>
+<div class="container">
 
-<div class="anime-list">
- 
-<div class="card">
-  <img src="https://cdn.myanimelist.net/images/anime/5/17407.jpg" alt="Naruto Shippuden">
-  <h3>Naruto Shippuden</h3>
-  <p>Hindi Dub 🔥</p>
-<div class="card">
-  <img src="https://placeholder.co/400x500/21182d/ffffff?text=Anime+2">
-  <h3>Anime Collection 02</h3>
-  <p>English Dub</p>
-</div>
-  <p>English Dub</p>
-</div>
-    <p>English Dub</p>
-  </div>
+<input id="searchInput" type="text"
+placeholder="🔍 Search Anime..." />
+
+<h2>🔥 Anime Collection</h2>
+
+<div class="anime-list" id="animeList">
+
+<div class="card" data-title="Naruto Shippuden"
+onclick="openAnime('Naruto Shippuden','Ninja adventure anime','Hindi Dub')">
+<div class="poster" style="background:linear-gradient(140deg,#e87520,#54220c)">🍥<br>NARUTO</div>
+<h3>Naruto Shippuden</h3>
+<p class="tag">Hindi Dub ⚔️</p>
 </div>
 
-<section style="background:#100d1d;color:white;padding:20px;border-radius:12px;margin:15px;">
-  <h2>🍥 Naruto Shippuden</h2>
-  <p>Episode 1 – Homecoming</p>
-
-  <div style="background:#000;padding:10px;border-radius:10px;text-align:center;margin-top:15px;">
-    <div style="height:180px;display:flex;align-items:center;justify-content:center;flex-direction:column;">
-      <div style="font-size:45px;">▶️</div>
-      <p>Episode Player</p>
-      <small style="color:#aaa;">Official video link will appear here</small>
-    </div>
-  </div>
-
-  <p style="color:#aaa;margin-top:12px;">Language: Hindi Dub</p>
-  <p style="color:#aaa;">Status: Video source not connected</p>
-</section>
-<div class="player">
-  <h2>Naruto Shippuden</h2>
-  <h3>Episode 1</h3>
-
-  <video controls width="100%" poster="">
-    <source src="naruto-episode-1.mp4" type="video/mp4">
-    Your browser does not support video.
-  </video>
+<div class="card" data-title="Solo Leveling"
+onclick="openAnime('Solo Leveling','The journey of Sung Jinwoo','Hindi Dub')">
+<div class="poster" style="background:linear-gradient(140deg,#193d80,#080d20)">⚔️<br>SOLO LEVELING</div>
+<h3>Solo Leveling</h3>
+<p class="tag">Hindi Dub ⚡</p>
 </div>
+
+<div class="card" data-title="Demon Slayer"
+onclick="openAnime('Demon Slayer','A demon slayer adventure','Hindi Dub')">
+<div class="poster" style="background:linear-gradient(140deg,#168b72,#152d31)">🌊<br>DEMON SLAYER</div>
+<h3>Demon Slayer</h3>
+<p class="tag">Hindi Dub ⚔️</p>
+</div>
+
+<div class="card" data-title="Black Clover"
+onclick="openAnime('Black Clover','Asta dreams of becoming Wizard King','Hindi Dub')">
+<div class="poster" style="background:linear-gradient(140deg,#47752e,#151d12)">🍀<br>BLACK CLOVER</div>
+<h3>Black Clover</h3>
+<p class="tag">Hindi Dub ⚔️</p>
+</div>
+
+<div class="card" data-title="Black Torch"
+onclick="openAnime('Black Torch','Manga collection','Manga')">
+<div class="poster" style="background:linear-gradient(140deg,#303030,#090909)">🐈‍⬛<br>BLACK TORCH</div>
+<h3>Black Torch</h3>
+<p class="tag">Manga 🖤</p>
+</div>
+
+<div class="card" data-title="Kagurabachi"
+onclick="openAnime('Kagurabachi','Upcoming anime information','Upcoming')">
+<div class="poster" style="background:linear-gradient(140deg,#6b2525,#160b0b)">🗡️<br>KAGURABACHI</div>
+<h3>Kagurabachi</h3>
+<p class="tag">Upcoming 🔥</p>
+</div>
+
+<div class="card" data-title="The Daily Life of the Immortal King"
+onclick="openAnime('The Daily Life of the Immortal King','Fantasy comedy adventure','Hindi Dub')">
+<div class="poster" style="background:linear-gradient(140deg,#347c9a,#101d3b)">☯️<br>IMMORTAL KING</div>
+<h3>The Daily Life of the Immortal King</h3>
+<p class="tag">Hindi Dub ⚡</p>
+</div>
+
+<div class="card" data-title="Classroom of the Elite"
+onclick="openAnime('Classroom of the Elite','School mind games','Anime')">
+<div class="poster" style="background:linear-gradient(140deg,#795b9c,#171326)">🎓<br>CLASSROOM OF THE ELITE</div>
+<h3>Classroom of the Elite</h3>
+<p class="tag">Anime 🎓</p>
+</div>
+
+</div>
+
+<div id="details">
+<h2 id="animeTitle"></h2>
+<p id="animeDescription"></p>
+<p id="animeStatus" class="tag"></p>
+<h3>📺 Episodes</h3>
+<div id="episodeList"></div>
+<button onclick="closeAnime()">Close</button>
+</div>
+
+<div id="videoArea">
+<h2 id="playingTitle">Episode Player</h2>
+<p>Apni authorized video file ka URL yahan daalo:</p>
+<input type="url" id="videoURL"
+placeholder="Paste your video URL here">
+<button onclick="playVideo()">Play Video ▶</button>
+<video id="videoPlayer" controls playsinline>
+Your browser does not support video.
+</video>
+</div>
+
+</div>
+
+<footer>
+ANIME WORLD © 2026
+</footer>
+
+<script>
+const searchInput = document.getElementById("searchInput");
+const cards = document.querySelectorAll(".card");
+
+searchInput.addEventListener("input", function(){
+ const search = this.value.toLowerCase().trim();
+
+ cards.forEach(card => {
+  const title = card.dataset.title.toLowerCase();
+  card.style.display = title.includes(search) ? "" : "none";
+ });
+});
+
+function openAnime(title, description, status){
+ document.getElementById("details").style.display = "block";
+ document.getElementById("animeTitle").textContent = title;
+ document.getElementById("animeDescription").textContent = description;
+ document.getElementById("animeStatus").textContent = status;
+
+ const list = document.getElementById("episodeList");
+ list.innerHTML = "";
+
+ if(status === "Upcoming" || status === "Manga"){
+  list.innerHTML = "<p>Episode information is not available yet.</p>";
+ } else {
+  const episode = document.createElement("div");
+  episode.className = "episode";
+
+  const name = document.createElement("span");
+  name.textContent = "Episode 1";
+
+  const btn = document.createElement("button");
+  btn.textContent = "Play ▶";
+  btn.onclick = function(){
+   document.getElementById("videoArea").style.display = "block";
+   document.getElementById("playingTitle").textContent = title + " - Episode 1";
+   document.getElementById("videoArea").scrollIntoView({behavior:"smooth"});
+  };
+
+  episode.appendChild(name);
+  episode.appendChild(btn);
+  list.appendChild(episode);
+ }
+
+ document.getElementById("videoArea").style.display = "none";
+ document.getElementById("details").scrollIntoView({behavior:"smooth"});
+}
+
+function closeAnime(){
+ document.getElementById("details").style.display = "none";
+ document.getElementById("videoArea").style.display = "none";
+}
+
+function playVideo(){
+ const url = document.getElementById("videoURL").value.trim();
+ const player = document.getElementById("videoPlayer");
+
+ if(!url){
+  alert("Pehle video URL paste karo!");
+  return;
+ }
+
+ player.src = url;
+ player.play().catch(() => {
+  alert("Video play nahi hua. URL aur video format check karo.");
+ });
+}
+</script>
+
 </body>
-
-<section style="padding:20px;color:white;">
-  <h2>🍥 Naruto Shippuden Episodes</h2>
-
-  <div style="background:#21182d;padding:15px;margin:12px 0;border-radius:10px;">
-    <h3>Episode 1</h3>
-    <p>Homecoming</p>
-    <a href="#" style="color:#c58aff;">▶ Watch Episode</a>
-  </div>
-
-  <div style="background:#21182d;padding:15px;margin:12px 0;border-radius:10px;">
-    <h3>Episode 2</h3>
-    <p>The Akatsuki Makes Its Move</p>
-    <a href="#" style="color:#c58aff;">▶ Watch Episode</a>
-  </div>
-
-  <div style="background:#21182d;padding:15px;margin:12px 0;border-radius:10px;">
-    <h3>Episode 3</h3>
-    <p>The Results of Training</p>
-    <a href="#" style="color:#c58aff;">▶ Watch Episode</a>
-  </div>
-
-<div class="card">
-  <img src="https://cdn.myanimelist.net/images/anime/1801/142390.jpg" alt="Solo Leveling">
-  <h3>Solo Leveling</h3>
-  <p>Hindi Dub ⚔️</p>
-</div>
-<div class="card">
-  <img src="https://cdn.myanimelist.net/images/anime/1286/99889.jpg" alt="Demon Slayer">
-  <h3>Demon Slayer</h3>
-  <p>Hindi Dub ⚔️</p>
-</div>
-<div class="card">
-  <img src="https://cdn.myanimelist.net/images/anime/2/88336.jpg" alt="Black Clover">
-  <h3>Black Clover</h3>
-  <p>Hindi Dub ⚔️</p>
-</div>
-</div>
-<div class="card">
-  <img src="https://cdn.myanimelist.net/images/manga/3/208340.jpg" alt="Black Torch">
-  <h3>Black Torch</h3>
-  <p>Anime / Manga 🖤</p>
-</div>
-<div class="card">
-  <img src="https://anime.kagurabachi.jp/images/video.webp" alt="Kagurabachi">
-  <h3>Kagurabachi</h3>
-  <p>Coming April 2027 ⚔️</p>
-  <p>Upcoming Anime 🔥</p>
-</div>
-<div class="card">
-  <img src="https://www.zerochan.net/3774728" alt="The Daily Life of the Immortal King">
-  <h3>The Daily Life of the Immortal King</h3>
-  <p>Hindi Dub ⚡</p>
-</div>
-<div class="card">
-</div>
-</div>
-<div class="card">
-</section>
 </html>
+
