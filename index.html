@@ -250,33 +250,53 @@ const posterIds = {
   "Classroom of the Elite": 35507
 };
 
-document.querySelectorAll(".card").forEach(async card => {
-  const id = posterIds[card.dataset.title];
-  if (!id) return;
+async function loadAnimePosters() {
+  const cards = document.querySelectorAll(".card");
 
-  try {
-    const response = await fetch(
-      `https://api.jikan.moe/v4/anime/${id}`
-    );
-    const result = await response.json();
-    const url = result.data.images.jpg.large_image_url;
+  for (const card of cards) {
+    const title = card.dataset.title;
+    const isManga = ["Black Torch", "Kagurabachi"].includes(title);
 
-    const poster = card.querySelector(".poster");
-    const img = document.createElement("img");
-    img.src = url;
-    img.alt = card.dataset.title;
-    img.style.cssText =
-      "width:100%;height:100%;object-fit:cover;display:block";
+    try {
+      const type = isManga ? "manga" : "anime";
+      const api = `https://api.jikan.moe/v4/${type}?q=${encodeURIComponent(title)}&limit=1`;
 
-    poster.innerHTML = "";
-    poster.style.padding = "0";
-    poster.appendChild(img);
-  } catch (error) {
-    console.log("Poster load nahi hua");
+      const response = await fetch(api);
+      if (!response.ok) continue;
+
+      const result = await response.json();
+      const item = result.data?.[0];
+      if (!item) continue;
+
+      const image =
+        item.images?.webp?.large_image_url ||
+        item.images?.jpg?.large_image_url;
+
+      if (!image) continue;
+
+      const poster = card.querySelector(".poster");
+      if (!poster) continue;
+
+      const img = document.createElement("img");
+      img.src = image;
+      img.alt = title + " poster";
+      img.loading = "lazy";
+      img.style.cssText =
+        "width:100%;height:100%;object-fit:cover;display:block";
+
+      poster.replaceChildren(img);
+      poster.style.padding = "0";
+    } catch (error) {
+      console.log("Poster loading failed:", title);
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 1200));
   }
-});
- </script>
+}
 
+loadAnimePosters();
+ 
+ </script>
 </body>
 </html>
 
