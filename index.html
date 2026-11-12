@@ -4,299 +4,411 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ANIME WORLD Rahuluckyash</title>
-
+<title>ANIME WORLD</title>
+<meta name="description" content="Explore your favourite anime at Anime World.">
 <style>
+:root {
+  --bg:#0b0a13;
+  --panel:#171525;
+  --purple:#a970ff;
+  --pink:#ed80d6;
+  --text:#f8f5ff;
+  --muted:#aaa4bb;
+}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
- margin:0;background:#101018;color:white;
- font-family:Arial,sans-serif;
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Arial,sans-serif;
 }
 header{
- background:#191925;padding:20px;text-align:center;
- border-bottom:2px solid #8b4cff;
+  position:sticky;top:0;z-index:20;
+  background:#100e1df2;backdrop-filter:blur(15px);
+  border-bottom:1px solid #302746;
 }
-header h1{margin:0;color:#b98aff}
-header p{color:#aaa;margin-bottom:0}
-.container{padding:18px;max-width:1100px;margin:auto}
-#searchInput{
- width:100%;padding:15px;border:1px solid #555;
- border-radius:10px;background:#20202d;color:white;
- font-size:16px;margin-bottom:20px;
+.nav{
+  max-width:1250px;margin:auto;padding:17px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:15px;
 }
-h2{color:#c49aff}
-.anime-list{
- display:grid;
- grid-template-columns:repeat(auto-fill,minmax(145px,1fr));
- gap:15px;
+.logo{
+  font-size:25px;font-weight:900;letter-spacing:1px;
+  color:#bd8cff;
+}
+.logo span{color:#fff}
+.nav a{
+  color:#ddd5ee;text-decoration:none;margin-left:18px;
+  font-size:14px;font-weight:bold;
+}
+.hero{
+  max-width:1250px;margin:25px auto;padding:55px 30px;
+  border-radius:24px;overflow:hidden;position:relative;
+  background:linear-gradient(115deg,#25104b,#48217c 55%,#171329);
+  border:1px solid #6844a0;
+}
+.hero:after{
+  content:"";position:absolute;width:300px;height:300px;
+  border-radius:50%;right:-70px;top:-80px;
+  background:#c17aff30;filter:blur(10px);
+}
+.hero h1{
+  font-size:clamp(35px,6vw,65px);margin:0 0 15px;
+  font-weight:900;line-height:1.05;
+}
+.hero h1 span{color:#d4a9ff}
+.hero p{color:#e0d4f3;line-height:1.7;max-width:550px}
+.hero button,.primary{
+  background:linear-gradient(90deg,#a45dff,#e36acb);
+  color:white;border:0;border-radius:30px;padding:13px 24px;
+  font-weight:bold;cursor:pointer;font-size:14px;
+}
+.container{max-width:1250px;margin:auto;padding:15px 22px}
+.search-wrap{margin:25px 0}
+.search{
+  width:100%;padding:17px 20px;border-radius:15px;
+  border:1px solid #48405c;background:#171525;
+  color:white;font-size:16px;outline:none;
+}
+.search:focus{border-color:var(--purple)}
+.section-head{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;margin:35px 0 18px;flex-wrap:wrap;
+}
+.section-head h2{font-size:25px;margin:0;color:#c49aff}
+.section-head small{color:var(--muted)}
+.categories{
+  display:flex;gap:10px;overflow-x:auto;padding:5px 0 15px;
+  scrollbar-width:thin;
+}
+.chip{
+  white-space:nowrap;border:1px solid #403751;
+  background:#171525;color:#ddd4ed;
+  padding:10px 17px;border-radius:30px;cursor:pointer;
+}
+.chip.active,.chip:hover{
+  background:#8748c9;color:white;border-color:#b57aff;
+}
+.grid{
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:20px;
 }
 .card{
- background:#20202d;border-radius:12px;overflow:hidden;
- cursor:pointer;border:1px solid #333;
- transition:.2s;
+  background:var(--panel);border:1px solid #302b40;
+  border-radius:15px;overflow:hidden;cursor:pointer;
+  transition:.25s;min-width:0;
 }
-.card:active{transform:scale(.97)}
+.card:hover{
+  transform:translateY(-6px);border-color:#a76cff;
+  box-shadow:0 12px 30px #8a42ff22;
+}
 .poster{
- height:190px;display:flex;align-items:center;
- justify-content:center;text-align:center;
- padding:12px;font-size:23px;font-weight:bold;
- background:linear-gradient(145deg,#552b91,#17172c);
+  width:100%;aspect-ratio:2/3;position:relative;
+  background:linear-gradient(140deg,#372052,#151329);
+  overflow:hidden;
 }
-.card h3{font-size:15px;margin:10px}
-.card p{font-size:12px;color:#bbb;margin:10px}
-.tag{color:#c49aff!important}
-button{
- background:#8b4cff;color:white;border:0;
- border-radius:8px;padding:12px 16px;
- cursor:pointer;font-size:14px;
+.poster img{
+  width:100%;height:100%;object-fit:cover;display:block;
 }
-button:hover{background:#7135d6}
-#details{
- display:none;background:#20202d;padding:18px;
- border-radius:12px;margin-top:25px;
+.poster .placeholder{
+  height:100%;display:flex;align-items:center;
+  justify-content:center;text-align:center;
+  padding:15px;font-size:23px;font-weight:900;color:#d9baff;
 }
-#details h2{margin-top:0}
-.episode{
- display:flex;justify-content:space-between;
- align-items:center;gap:10px;
- background:#303040;padding:12px;
- border-radius:8px;margin:10px 0;
+.poster .loading{
+  position:absolute;bottom:10px;left:0;right:0;
+  text-align:center;color:#ddd;font-size:12px;
 }
-video{width:100%;margin-top:15px;background:black}
-#videoArea{display:none;margin-top:20px}
-input[type=url]{
- width:100%;padding:13px;margin:10px 0;
- background:#111;color:white;border:1px solid #555;
- border-radius:8px;
+.card-info{padding:13px}
+.card-info h3{font-size:15px;margin:0 0 9px;line-height:1.4}
+.card-info p{font-size:12px;color:#c49aff;margin:0}
+.tag{
+  display:inline-block;margin-top:9px;background:#302044;
+  color:#d8b9ff;padding:5px 8px;border-radius:6px;
+  font-size:10px;
 }
-footer{text-align:center;padding:25px;color:#888}
+.empty{color:#aaa;text-align:center;padding:40px;display:none}
+footer{
+  margin-top:60px;text-align:center;padding:35px 15px;
+  background:#12101d;border-top:1px solid #302746;
+  color:#aaa;font-size:13px;line-height:1.8;
+}
+.modal{
+  display:none;position:fixed;inset:0;z-index:50;
+  background:#000d;align-items:center;justify-content:center;
+  padding:15px;
+}
+.modal-box{
+  background:#1a1728;border:1px solid #694b91;
+  border-radius:18px;max-width:650px;width:100%;
+  max-height:90vh;overflow:auto;padding:22px;
+}
+.modal-top{display:flex;justify-content:space-between;gap:15px}
+.modal-top h2{color:#c69aff;margin:0}
+.close{
+  background:#342744;color:white;border:0;
+  border-radius:8px;padding:8px 13px;cursor:pointer;
+}
+.modal-content{display:flex;gap:20px;margin-top:20px}
+.modal-content img{width:145px;max-height:220px;object-fit:cover;border-radius:10px}
+.modal-content p{color:#ccc;line-height:1.6;font-size:14px}
+@media(max-width:1000px){
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .nav{padding:14px}
+  .logo{font-size:20px}
+  .nav a{margin-left:9px;font-size:12px}
+  .hero{margin:15px 12px;padding:38px 22px}
+  .container{padding:12px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+  .card-info{padding:11px}
+  .card-info h3{font-size:14px}
+  .section-head h2{font-size:21px}
+  .modal-content{flex-direction:column}
+  .modal-content img{width:125px}
+}
 </style>
 </head>
-
 <body>
 
 <header>
-<h1>ANIME WORLD</h1>
-<p>Your Anime Destination ❤️</p>
+  <div class="nav">
+    <div class="logo">ANIME <span>WORLD</span> ✨</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#collection">Anime</a>
+      <a href="#categories">Categories</a>
+    </nav>
+  </div>
 </header>
 
-<div class="container">
+<section class="hero" id="home">
+  <h1>WELCOME TO<br><span>ANIME WORLD</span></h1>
+  <p>Your Anime Destination ❤️
+  Explore amazing anime, discover new stories and find your next favourite adventure.</p>
+  <button onclick="document.getElementById('collection').scrollIntoView()">
+    EXPLORE ANIME ↓
+  </button>
+</section>
 
-<input id="searchInput" type="text"
-placeholder="🔍 Search Anime..." />
+<main class="container">
+  <div class="search-wrap">
+    <input class="search" id="search" type="search"
+    placeholder="🔎 Search your favourite anime...">
+  </div>
 
-<h2>🔥 Anime Collection</h2>
+  <section id="categories">
+    <div class="section-head">
+      <h2>🔥 Browse Categories</h2>
+      <small>Choose your favourite genre</small>
+    </div>
+    <div class="categories" id="categoryButtons">
+      <button class="chip active" data-category="All">All Anime</button>
+      <button class="chip" data-category="Action">Action</button>
+      <button class="chip" data-category="Adventure">Adventure</button>
+      <button class="chip" data-category="Fantasy">Fantasy</button>
+      <button class="chip" data-category="Romance">Romance</button>
+      <button class="chip" data-category="Comedy">Comedy</button>
+      <button class="chip" data-category="Thriller">Thriller</button>
+      <button class="chip" data-category="School">School</button>
+      <button class="chip" data-category="Sports">Sports</button>
+      <button class="chip" data-category="Manga">Manga</button>
+    </div>
+  </section>
 
-<div class="anime-list" id="animeList">
-
-<div class="card" data-title="Naruto Shippuden"
-onclick="openAnime('Naruto Shippuden','Ninja adventure anime','Hindi Dub')">
-<div class="poster" style="background:linear-gradient(140deg,#e87520,#54220c)">🍥<br>NARUTO</div>
-<h3>Naruto Shippuden</h3>
-<p class="tag">Hindi Dub ⚔️</p>
-</div>
-
-<div class="card" data-title="Solo Leveling"
-onclick="openAnime('Solo Leveling','The journey of Sung Jinwoo','Hindi Dub')">
-<div class="poster" style="background:linear-gradient(140deg,#193d80,#080d20)">⚔️<br>SOLO LEVELING</div>
-<h3>Solo Leveling</h3>
-<p class="tag">Hindi Dub ⚡</p>
-</div>
-
-<div class="card" data-title="Demon Slayer"
-onclick="openAnime('Demon Slayer','A demon slayer adventure','Hindi Dub')">
-<div class="poster" style="background:linear-gradient(140deg,#168b72,#152d31)">🌊<br>DEMON SLAYER</div>
-<h3>Demon Slayer</h3>
-<p class="tag">Hindi Dub ⚔️</p>
-</div>
-
-<div class="card" data-title="Black Clover"
-onclick="openAnime('Black Clover','Asta dreams of becoming Wizard King','Hindi Dub')">
-<div class="poster" style="background:linear-gradient(140deg,#47752e,#151d12)">🍀<br>BLACK CLOVER</div>
-<h3>Black Clover</h3>
-<p class="tag">Hindi Dub ⚔️</p>
-</div>
-
-<div class="card" data-title="Black Torch"
-onclick="openAnime('Black Torch','Manga collection','Manga')">
-<div class="poster" style="background:linear-gradient(140deg,#303030,#090909)">🐈‍⬛<br>BLACK TORCH</div>
-<h3>Black Torch</h3>
-<p class="tag">Manga 🖤</p>
-</div>
-
-<div class="card" data-title="Kagurabachi"
-onclick="openAnime('Kagurabachi','Upcoming anime information','Upcoming')">
-<div class="poster" style="background:linear-gradient(140deg,#6b2525,#160b0b)">🗡️<br>KAGURABACHI</div>
-<h3>Kagurabachi</h3>
-<p class="tag">Upcoming 🔥</p>
-</div>
-
-<div class="card" data-title="The Daily Life of the Immortal King"
-onclick="openAnime('The Daily Life of the Immortal King','Fantasy comedy adventure','Hindi Dub')">
-<div class="poster" style="background:linear-gradient(140deg,#347c9a,#101d3b)">☯️<br>IMMORTAL KING</div>
-<h3>The Daily Life of the Immortal King</h3>
-<p class="tag">Hindi Dub ⚡</p>
-</div>
-
-<div class="card" data-title="Classroom of the Elite"
-onclick="openAnime('Classroom of the Elite','School mind games','Anime')">
-<div class="poster" style="background:linear-gradient(140deg,#795b9c,#171326)">🎓<br>CLASSROOM OF THE ELITE</div>
-<h3>Classroom of the Elite</h3>
-<p class="tag">Anime 🎓</p>
-</div>
-
-</div>
-
-<div id="details">
-<h2 id="animeTitle"></h2>
-<p id="animeDescription"></p>
-<p id="animeStatus" class="tag"></p>
-<h3>📺 Episodes</h3>
-<div id="episodeList"></div>
-<button onclick="closeAnime()">Close</button>
-</div>
-
-<div id="videoArea">
-<h2 id="playingTitle">Episode Player</h2>
-<p>Apni authorized video file ka URL yahan daalo:</p>
-<input type="url" id="videoURL"
-placeholder="Paste your video URL here">
-<button onclick="playVideo()">Play Video ▶</button>
-<video id="videoPlayer" controls playsinline>
-Your browser does not support video.
-</video>
-</div>
-
-</div>
+  <section id="collection">
+    <div class="section-head">
+      <h2>⚡ Popular Anime Collection</h2>
+      <small id="count">Loading collection...</small>
+    </div>
+    <div class="grid" id="animeGrid"></div>
+    <div class="empty" id="empty">No anime found 😔</div>
+  </section>
+</main>
 
 <footer>
-ANIME WORLD © 2026
+  <div class="logo">ANIME WORLD ✨</div>
+  Your Anime Destination ❤️<br>
+  Anime information and poster images are loaded from Jikan API.<br>
+  This website is an independent fan project.
 </footer>
 
+<div class="modal" id="animeModal" onclick="outsideClose(event)">
+  <div class="modal-box">
+    <div class="modal-top">
+      <h2 id="modalTitle">Anime Details</h2>
+      <button class="close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="Anime poster">
+      <div>
+        <p id="modalDescription"></p>
+        <p id="modalGenres"></p>
+        <p id="modalScore"></p>
+        <a id="malLink" target="_blank" rel="noopener">
+          View anime information ↗
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-const searchInput = document.getElementById("searchInput");
-const cards = document.querySelectorAll(".card");
+const animeList = [
+ {id:20,title:"Naruto",cats:["Action","Adventure"]},
+ {id:1735,title:"Naruto Shippuden",cats:["Action","Adventure"]},
+ {id:52299,title:"Solo Leveling",cats:["Action","Fantasy"]},
+ {id:38000,title:"Demon Slayer",cats:["Action","Fantasy"]},
+ {id:34572,title:"Black Clover",cats:["Action","Fantasy"]},
+ {id:21,title:"One Piece",cats:["Action","Adventure"]},
+ {id:40748,title:"Jujutsu Kaisen",cats:["Action","Fantasy"]},
+ {id:16498,title:"Attack on Titan",cats:["Action","Thriller"]},
+ {id:50265,title:"Spy x Family",cats:["Action","Comedy"]},
+ {id:44511,title:"Chainsaw Man",cats:["Action","Fantasy"]},
+ {id:49596,title:"Blue Lock",cats:["Sports"]},
+ {id:31964,title:"My Hero Academia",cats:["Action","School"]},
+ {id:42249,title:"Tokyo Revengers",cats:["Action","Thriller"]},
+ {id:20583,title:"Haikyuu",cats:["Sports","Comedy"]},
+ {id:1535,title:"Death Note",cats:["Thriller"]},
+ {id:813,title:"Dragon Ball Z",cats:["Action","Adventure"]},
+ {id:41094,title:"The Daily Life of the Immortal King",cats:["Fantasy","Comedy"]},
+ {id:35507,title:"Classroom of the Elite",cats:["School","Thriller"]},
+ {id:5114,title:"Fullmetal Alchemist: Brotherhood",cats:["Action","Adventure","Fantasy"]},
+ {id:9253,title:"Steins;Gate",cats:["Thriller"]}
+];
 
-searchInput.addEventListener("input", function(){
- const search = this.value.toLowerCase().trim();
+const grid = document.getElementById("animeGrid");
+const search = document.getElementById("search");
+const count = document.getElementById("count");
+let selectedCategory = "All";
+let detailsCache = {};
 
- cards.forEach(card => {
-  const title = card.dataset.title.toLowerCase();
-  card.style.display = title.includes(search) ? "" : "none";
+function makeCard(item){
+ const card = document.createElement("article");
+ card.className = "card";
+ card.dataset.title = item.title.toLowerCase();
+ card.dataset.cats = item.cats.join(" ");
+ card.innerHTML = `
+  <div class="poster">
+   <div class="placeholder">${item.title}</div>
+   <div class="loading">Loading HD poster...</div>
+  </div>
+  <div class="card-info">
+   <h3>${item.title}</h3>
+   <p>⭐ Anime Collection</p>
+   <span class="tag">${item.cats[0]}</span>
+  </div>`;
+ card.addEventListener("click",()=>showDetails(item));
+ grid.appendChild(card);
+ item.element = card;
+}
+
+animeList.forEach(makeCard);
+
+function filterAnime(){
+ const query = search.value.toLowerCase().trim();
+ let visible = 0;
+
+ animeList.forEach(item=>{
+  const matchesText = item.title.toLowerCase().includes(query);
+  const matchesCategory = selectedCategory==="All" ||
+    item.cats.includes(selectedCategory);
+  const show = matchesText && matchesCategory;
+  item.element.style.display = show ? "" : "none";
+  if(show) visible++;
+ });
+
+ count.textContent = visible + " anime";
+ document.getElementById("empty").style.display =
+   visible ? "none" : "block";
+}
+
+search.addEventListener("input",filterAnime);
+
+document.querySelectorAll(".chip").forEach(button=>{
+ button.addEventListener("click",()=>{
+  document.querySelectorAll(".chip").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+  selectedCategory = button.dataset.category;
+  filterAnime();
  });
 });
 
-function openAnime(title, description, status){
- document.getElementById("details").style.display = "block";
- document.getElementById("animeTitle").textContent = title;
- document.getElementById("animeDescription").textContent = description;
- document.getElementById("animeStatus").textContent = status;
-
- const list = document.getElementById("episodeList");
- list.innerHTML = "";
-
- if(status === "Upcoming" || status === "Manga"){
-  list.innerHTML = "<p>Episode information is not available yet.</p>";
- } else {
-  const episode = document.createElement("div");
-  episode.className = "episode";
-
-  const name = document.createElement("span");
-  name.textContent = "Episode 1";
-
-  const btn = document.createElement("button");
-  btn.textContent = "Play ▶";
-  btn.onclick = function(){
-   document.getElementById("videoArea").style.display = "block";
-   document.getElementById("playingTitle").textContent = title + " - Episode 1";
-   document.getElementById("videoArea").scrollIntoView({behavior:"smooth"});
-  };
-
-  episode.appendChild(name);
-  episode.appendChild(btn);
-  list.appendChild(episode);
- }
-
- document.getElementById("videoArea").style.display = "none";
- document.getElementById("details").scrollIntoView({behavior:"smooth"});
+function wait(ms){
+ return new Promise(resolve=>setTimeout(resolve,ms));
 }
 
-function closeAnime(){
- document.getElementById("details").style.display = "none";
- document.getElementById("videoArea").style.display = "none";
-}
+async function loadPosters(){
+ for(const item of animeList){
+  const poster = item.element.querySelector(".poster");
+  const loading = poster.querySelector(".loading");
 
-function playVideo(){
- const url = document.getElementById("videoURL").value.trim();
- const player = document.getElementById("videoPlayer");
+  try{
+   const response = await fetch(
+    `https://api.jikan.moe/v4/anime/${item.id}`
+   );
+   if(!response.ok) throw new Error("API unavailable");
 
- if(!url){
-  alert("Pehle video URL paste karo!");
-  return;
- }
+   const result = await response.json();
+   const data = result.data;
+   detailsCache[item.id] = data;
 
- player.src = url;
- player.play().catch(() => {
-  alert("Video play nahi hua. URL aur video format check karo.");
- });
-}
+   const image =
+    data.images?.webp?.large_image_url ||
+    data.images?.jpg?.large_image_url;
 
-const posterIds = {
-  "Naruto Shippuden": 1735,
-  "Solo Leveling": 52299,
-  "Demon Slayer": 38000,
-  "Black Clover": 34572,
-  "The Daily Life of the Immortal King": 41094,
-  "Classroom of the Elite": 35507
-};
-
-async function loadAnimePosters() {
-  const cards = document.querySelectorAll(".card");
-
-  for (const card of cards) {
-    const title = card.dataset.title;
-    const isManga = ["Black Torch", "Kagurabachi"].includes(title);
-
-    try {
-      const type = isManga ? "manga" : "anime";
-      const api = `https://api.jikan.moe/v4/${type}?q=${encodeURIComponent(title)}&limit=1`;
-
-      const response = await fetch(api);
-      if (!response.ok) continue;
-
-      const result = await response.json();
-      const item = result.data?.[0];
-      if (!item) continue;
-
-      const image =
-        item.images?.webp?.large_image_url ||
-        item.images?.jpg?.large_image_url;
-
-      if (!image) continue;
-
-      const poster = card.querySelector(".poster");
-      if (!poster) continue;
-
-      const img = document.createElement("img");
-      img.src = image;
-      img.alt = title + " poster";
-      img.loading = "lazy";
-      img.style.cssText =
-        "width:100%;height:100%;object-fit:cover;display:block";
-
-      poster.replaceChildren(img);
-      poster.style.padding = "0";
-    } catch (error) {
-      console.log("Poster loading failed:", title);
-    }
-
-    await new Promise(resolve => setTimeout(resolve, 1200));
+   if(image){
+    const img = new Image();
+    img.alt = item.title + " HD poster";
+    img.loading = "lazy";
+    img.src = image;
+    img.onload = ()=>{
+     poster.innerHTML = "";
+     poster.appendChild(img);
+    };
+    img.onerror = ()=>{
+     loading.textContent = "Poster unavailable";
+    };
+   }else{
+    loading.textContent = "Poster unavailable";
+   }
+  }catch(error){
+   loading.textContent = "Poster unavailable";
   }
+
+  await wait(1300);
+ }
 }
 
-loadAnimePosters();
- 
- </script>
+async function showDetails(item){
+ const modal = document.getElementById("animeModal");
+ const data = detailsCache[item.id];
+
+ document.getElementById("modalTitle").textContent = item.title;
+ document.getElementById("modalDescription").textContent =
+  data?.synopsis || "Anime information is loading or unavailable.";
+ document.getElementById("modalGenres").textContent =
+  "Genres: " + (data?.genres?.map(g=>g.name).join(", ") || item.cats.join(", "));
+ document.getElementById("modalScore").textContent =
+  "⭐ Score: " + (data?.score || "Not available");
+ document.getElementById("modalImage").src =
+  data?.images?.webp?.large_image_url ||
+  data?.images?.jpg?.large_image_url || "";
+ document.getElementById("malLink").href =
+  data?.url || "https://myanimelist.net/";
+ modal.style.display = "flex";
+}
+
+function closeModal(){
+ document.getElementById("animeModal").style.display = "none";
+}
+function outsideClose(event){
+ if(event.target.id==="animeModal") closeModal();
+}
+
+filterAnime();
+loadPosters();
+</script>
 </body>
 </html>
 
