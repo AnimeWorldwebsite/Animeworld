@@ -1,134 +1,98 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090b16">
-<title>ANIME WORLD</title>
-
+<meta name="theme-color" content="#080914">
+<title>ANIME WORLD | Anime Universe</title>
 <style>
+:root{--bg:#080914;--card:#141629;--purple:#a78bfa;--pink:#ec4899;--text:#f8f7ff;--muted:#a5a5bd}
 *{box-sizing:border-box}
-body{
- margin:0;background:#090b16;color:white;
- font-family:Arial,sans-serif;
-}
-header{
- background:#111629;padding:18px 5%;
- display:flex;justify-content:space-between;
- align-items:center;border-bottom:1px solid #292d48;
- position:sticky;top:0;z-index:10;
-}
-.logo{font-size:24px;font-weight:900;color:#a78bfa}
-.logo span{color:#22d3ee}
-header a{color:white;text-decoration:none}
-.hero{
- padding:55px 5%;background:
- radial-gradient(circle at 80% 20%,#54269b,#090b16 65%);
-}
-.hero h1{font-size:48px;margin:10px 0}
-.hero p{color:#c0c5d8;line-height:1.6}
-.search{
- width:100%;max-width:600px;padding:16px;
- border-radius:12px;border:1px solid #444;
- background:#171e34;color:white;font-size:16px;
- outline:none;
-}
-main{padding:25px 5%}
-.heading{display:flex;justify-content:space-between;align-items:center}
-.heading h2{font-size:26px}
-#count{color:#aaa}
-.filters{
- display:flex;gap:10px;overflow-x:auto;
- padding:10px 0 20px;
-}
-.filter{
- background:#171e34;color:white;border:1px solid #343b58;
- padding:10px 16px;border-radius:25px;
- white-space:nowrap;cursor:pointer;
-}
-.filter.active{background:#7c3aed;border-color:#7c3aed}
-.grid{
- display:grid;
- grid-template-columns:repeat(5,minmax(0,1fr));
- gap:18px;
-}
-.card{
- background:#151b2d;border-radius:14px;
- overflow:hidden;border:1px solid #ffffff15;
- cursor:pointer;transition:.25s;
-}
-.card:hover{transform:translateY(-6px);border-color:#8b5cf6}
-.poster{width:100%;aspect-ratio:2/2.85;background:#252b45}
-.poster img{width:100%;height:100%;object-fit:cover;display:block}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{position:sticky;top:0;z-index:10;background:#090a18ed;backdrop-filter:blur(15px);border-bottom:1px solid #ffffff15}
+.nav{max-width:1250px;margin:auto;padding:17px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:24px;font-weight:1000;letter-spacing:1px}
+.logo span{color:var(--purple)}
+.nav a{color:white;text-decoration:none;font-size:13px;font-weight:bold}
+.wrap{max-width:1250px;margin:auto;padding:0 20px}
+.hero{margin:25px 0 38px;min-height:390px;border-radius:25px;overflow:hidden;position:relative;display:flex;align-items:center;padding:45px;background:linear-gradient(90deg,#080914 5%,#080914dd 48%,#08091420),url('posters/solo-leveling.jpg') center 25%/cover;border:1px solid #ffffff20}
+.hero-content{max-width:590px;position:relative;z-index:1}
+.eyebrow{color:#c4b5fd;font-size:12px;font-weight:bold;letter-spacing:3px}
+h1{font-size:clamp(42px,8vw,76px);line-height:.98;margin:16px 0}
+h1 span{color:var(--purple)}
+.hero p{color:#d0cfe0;line-height:1.7;max-width:500px}
+.hero-btn{display:inline-block;margin-top:12px;padding:14px 23px;border-radius:10px;background:linear-gradient(100deg,#7c3aed,#db2777);color:white;text-decoration:none;font-weight:bold}
+.searchbox{margin:25px 0}
+.searchbox input{width:100%;padding:17px 20px;border-radius:14px;border:1px solid #ffffff25;background:#151629;color:white;font-size:16px;outline:none}
+.searchbox input:focus{border-color:var(--purple)}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin:35px 0 18px}
+.section-title h2{font-size:27px;margin:0}
+.section-title small{color:var(--muted)}
+.filters{display:flex;gap:10px;overflow-x:auto;padding:5px 0 20px}
+.filter{flex-shrink:0;border:1px solid #ffffff20;background:#17182b;color:white;padding:10px 17px;border-radius:30px;font-weight:bold;cursor:pointer}
+.filter.active,.filter:hover{background:linear-gradient(100deg,#7c3aed,#db2777);border-color:transparent}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;padding-bottom:55px}
+.card{background:var(--card);border:1px solid #ffffff12;border-radius:15px;overflow:hidden;cursor:pointer;transition:.25s}
+.card:hover{transform:translateY(-7px);border-color:#a78bfa;box-shadow:0 12px 35px #7c3aed30}
+.poster{aspect-ratio:2/2.8;background:#202039;overflow:hidden}
+.poster img{width:100%;height:100%;object-fit:cover;display:block;transition:.3s}
+.card:hover img{transform:scale(1.06)}
 .info{padding:12px}
-.name{font-size:14px;font-weight:bold;line-height:1.4;min-height:38px}
-.tag{
- display:inline-block;margin-top:8px;
- background:#39246a;color:#d7c5ff;
- padding:5px 9px;border-radius:20px;font-size:11px;
-}
-.empty{display:none;text-align:center;color:#aaa;padding:40px}
-footer{text-align:center;padding:25px;color:#999;border-top:1px solid #252b45}
-.modal{
- display:none;position:fixed;inset:0;background:#000d;
- z-index:30;align-items:center;justify-content:center;padding:15px;
-}
+.name{font-size:14px;font-weight:bold;line-height:1.4;min-height:39px}
+.tag{display:inline-block;margin-top:7px;padding:5px 9px;border-radius:20px;background:#8b5cf626;color:#c4b5fd;font-size:10px;font-weight:bold}
+.empty{text-align:center;color:var(--muted);padding:40px;display:none}
+footer{border-top:1px solid #ffffff18;text-align:center;padding:30px 15px;color:var(--muted);font-size:13px;line-height:1.8}
+.modal{display:none;position:fixed;inset:0;background:#000d;z-index:30;align-items:center;justify-content:center;padding:15px}
 .modal.show{display:flex}
-.modalbox{
- position:relative;background:#171e34;border-radius:18px;
- width:100%;max-width:650px;display:grid;
- grid-template-columns:200px 1fr;overflow:hidden;
-}
-.modalbox img{width:100%;height:100%;object-fit:cover;min-height:260px}
+.modalbox{width:min(700px,100%);background:#17182c;border:1px solid #ffffff25;border-radius:20px;overflow:hidden;display:grid;grid-template-columns:210px 1fr;position:relative}
+.modalbox img{width:100%;height:100%;min-height:280px;object-fit:cover}
 .modaltext{padding:25px}
-.modaltext p{color:#b5bdd2;line-height:1.6}
-.modaltext a{
- display:inline-block;background:#7c3aed;color:white;
- padding:12px 15px;border-radius:10px;text-decoration:none;
- margin-top:10px;font-weight:bold
-}
-.close{
- position:absolute;right:10px;top:10px;
- border:0;border-radius:50%;width:32px;height:32px;
- background:#333;color:white;font-size:20px;
-}
+.modaltext p{color:var(--muted);line-height:1.6}
+.modaltext a{display:inline-block;background:linear-gradient(100deg,#7c3aed,#db2777);padding:13px 16px;color:white;text-decoration:none;border-radius:10px;font-weight:bold;margin-top:10px}
+.close{position:absolute;right:10px;top:10px;border:0;border-radius:50%;width:35px;height:35px;background:#ffffff25;color:white;font-size:22px;cursor:pointer}
 @media(max-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:600px){
- .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
- .hero h1{font-size:38px}
- .hero{padding:40px 5%}
- .modalbox{grid-template-columns:115px 1fr}
- .modaltext{padding:18px 12px}
-}
+@media(max-width:600px){.wrap{padding:0 13px}.nav{padding:14px}.logo{font-size:20px}.hero{padding:28px 20px;min-height:340px;background-position:60% center}.hero p{font-size:14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.section-title h2{font-size:22px}.modalbox{grid-template-columns:110px 1fr}.modalbox img{min-height:240px}.modaltext{padding:20px 13px}.modaltext h2{font-size:18px}.modaltext p{font-size:13px}.modaltext a{font-size:12px;padding:10px}}
 </style>
 </head>
-
 <body>
-
 <header>
- <div class="logo">ANIME<span>WORLD</span></div>
- <a href="#anime">EXPLORE ↓</a>
+ <div class="nav">
+  <div class="logo">ANIME<span>WORLD</span></div>
+  <a href="#anime">EXPLORE ANIME ↓</a>
+ </div>
 </header>
 
-<section class="hero">
- <h1>ENTER THE<br>ANIME WORLD</h1>
- <p>Discover your favourite anime. Explore action, fantasy, adventure and more!</p>
- <input class="search" id="search" type="search" placeholder="🔍 Search your anime...">
-</section>
+<main class="wrap">
+ <section class="hero">
+  <div class="hero-content">
+   <div class="eyebrow">WELCOME TO YOUR ANIME UNIVERSE</div>
+   <h1>UNLOCK YOUR<br><span>ANIME</span> WORLD.</h1>
+   <p>Discover legendary heroes, epic battles and unforgettable adventures. Find your next favourite anime here!</p>
+   <a class="hero-btn" href="#anime">EXPLORE COLLECTION ↗</a>
+  </div>
+ </section>
 
-<main id="anime">
- <div class="heading">
-  <h2>🔥 Explore Anime</h2>
-  <span id="count">20 Anime</span>
+ <div class="searchbox">
+  <input id="search" type="search" placeholder="🔍 Search your favourite anime...">
  </div>
 
- <div class="filters" id="filters"></div>
- <div class="grid" id="grid"></div>
- <div class="empty" id="empty">No anime found!</div>
+ <section id="anime">
+  <div class="section-title">
+   <h2>🔥 Anime Collection</h2>
+   <small id="count">20 Anime</small>
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">No anime found. Try another search!</div>
+ </section>
 </main>
 
 <footer>
- ANIME WORLD © 2026
+ <b>ANIME WORLD</b><br>
+ Your Universe. Your Anime. Your Adventure.<br>
+ Posters are displayed for anime identification.
 </footer>
 
 <div class="modal" id="modal">
@@ -138,14 +102,14 @@ footer{text-align:center;padding:25px;color:#999;border-top:1px solid #252b45}
   <div class="modaltext">
    <h2 id="modalTitle"></h2>
    <span class="tag" id="modalTag"></span>
-   <p>Explore this anime and find official streaming availability.</p>
-   <a id="watchLink" target="_blank" rel="noopener">Find Watch Options ↗</a>
+   <p>Explore this anime and check official streaming availability in your region.</p>
+   <a id="watchLink" target="_blank" rel="noopener">FIND WATCH OPTIONS ↗</a>
   </div>
  </div>
 </div>
 
 <script>
-const anime = [
+const anime=[
 {name:"Naruto",poster:"posters/naruto.jpg",category:"Action"},
 {name:"Naruto Shippuden",poster:"posters/naruto-shippuden.jpg",category:"Action"},
 {name:"Solo Leveling",poster:"posters/solo-leveling.jpg",category:"Fantasy"},
@@ -175,64 +139,41 @@ let active="All";
 
 const categories=["All",...new Set(anime.map(a=>a.category))];
 
-categories.forEach(c=>{
- const b=document.createElement("button");
- b.className="filter"+(c==="All"?" active":"");
- b.textContent=c;
- b.onclick=()=>{
-  active=c;
-  document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x===b));
+categories.forEach(category=>{
+ const button=document.createElement("button");
+ button.className="filter"+(category==="All"?" active":"");
+ button.textContent=category;
+ button.onclick=()=>{
+  active=category;
+  document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b===button));
   render();
  };
- filters.appendChild(b);
+ filters.appendChild(button);
 });
 
 function render(){
- const q=search.value.toLowerCase().trim();
- const shown=anime.filter(a=>
-  (active==="All"||a.category===active)&&
-  a.name.toLowerCase().includes(q)
+ const query=search.value.trim().toLowerCase();
+ const results=anime.filter(a=>
+  (active==="All"||a.category===active)&&a.name.toLowerCase().includes(query)
  );
-
  grid.innerHTML="";
-
- shown.forEach(a=>{
-  const card=document.createElement("div");
+ results.forEach(a=>{
+  const card=document.createElement("article");
   card.className="card";
-
-  const poster=document.createElement("div");
-  poster.className="poster";
-
-  const img=document.createElement("img");
-  img.src=a.poster;
-  img.alt=a.name+" poster";
-  img.loading="lazy";
-  img.onerror=()=>{
-   img.style.display="none";
-   poster.style.background="linear-gradient(135deg,#312e81,#0e7490)";
-  };
-
-  poster.appendChild(img);
-
-  const info=document.createElement("div");
-  info.className="info";
-
-  const name=document.createElement("div");
-  name.className="name";
-  name.textContent=a.name;
-
-  const tag=document.createElement("span");
-  tag.className="tag";
-  tag.textContent=a.category;
-
-  info.append(name,tag);
-  card.append(poster,info);
+  card.innerHTML=`
+   <div class="poster">
+    <img src="${a.poster}" alt="${a.name} poster" loading="lazy"
+    onerror="this.style.display='none'">
+   </div>
+   <div class="info">
+    <div class="name">${a.name}</div>
+    <span class="tag">${a.category}</span>
+   </div>`;
   card.onclick=()=>openModal(a);
   grid.appendChild(card);
  });
-
- document.getElementById("count").textContent=shown.length+" Anime";
- document.getElementById("empty").style.display=shown.length?"none":"block";
+ document.getElementById("count").textContent=results.length+" Anime";
+ document.getElementById("empty").style.display=results.length?"none":"block";
 }
 
 function openModal(a){
@@ -256,9 +197,7 @@ document.getElementById("modal").onclick=e=>{
 document.addEventListener("keydown",e=>{
  if(e.key==="Escape")closeModal();
 });
-
 render();
 </script>
-
 </body>
 </html>
