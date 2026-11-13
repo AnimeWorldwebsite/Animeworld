@@ -1,0 +1,25 @@
+const anime = [
+  { name: "Naruto", poster: "posters/naruto.jpg", category: "Action" },
+  { name: "Naruto Shippuden", poster: "posters/naruto-shippuden.jpg", category: "Action" },
+  { name: "Solo Leveling", poster: "posters/solo-leveling.jpg", category: "Fantasy" },
+  { name: "Demon Slayer", poster: "posters/demon-slayer.jpg", category: "Action" },
+  { name: "Black Clover", poster: "posters/black-clover.jpg", category: "Fantasy" },
+  { name: "One Piece", poster: "posters/one-piece.jpg", category: "Adventure" },
+  { name: "Jujutsu Kaisen", poster: "posters/jujutsu-kaisen.jpg", category: "Action" },
+  { name: "Attack on Titan", poster: "posters/attack-on-titan.jpg", category: "Action" },
+  { name: "Spy x Family", poster: "posters/spy-x-family.jpg", category: "Comedy" },
+  { name: "Chainsaw Man", poster: "posters/chainsaw-man.jpg", category: "Action" },
+  { name: "Blue Lock", poster: "posters/blue-lock.jpg", category: "Sports" },
+  { name: "My Hero Academia", poster: "posters/my-hero-academia.jpg", category: "Action" },
+  { name: "Tokyo Revengers", poster: "posters/tokyo-revengers.jpg", category: "Action" },
+  { name: "Haikyuu!!", poster: "posters/haikyuu.jpg", category: "Sports" },
+  { name: "Death Note", poster: "posters/death-note.jpg", category: "Thriller" },
+  { name: "Dragon Ball Z", poster: "posters/dragon-ball-z.jpg", category: "Action" },
+  { name: "The Daily Life of the Immortal King", poster: "posters/daily-life-of-the-immortal-king.jpg", category: "Fantasy" },
+  { name: "Classroom of the Elite", poster: "posters/classroom-of-the-elite.jpg", category: "Drama" },
+  { name: "Fullmetal Alchemist: Brotherhood", poster: "posters/fullmetal-alchemist-brotherhood.jpg", category: "Adventure" },
+  { name: "Steins;Gate", poster: "posters/steins-gate.jpg", category: "Sci-Fi" }
+];
+
+// Poster image in each card:
+// <img src="${a.poster}" alt="${a.name}">
