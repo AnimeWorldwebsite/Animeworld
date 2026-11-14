@@ -1,0 +1,470 @@
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Anime Video Player</title>  <style>  
+* {  
+    margin: 0;  
+    padding: 0;  
+    box-sizing: border-box;  
+}  
+  
+body {  
+    background: #080812;  
+    color: white;  
+    font-family: Arial, sans-serif;  
+    min-height: 100vh;  
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    padding: 20px;  
+}  
+  
+.player-container {  
+    width: 100%;  
+    max-width: 900px;  
+    background: #11111f;  
+    border: 1px solid #713cff;  
+    border-radius: 18px;  
+    overflow: hidden;  
+    box-shadow: 0 0 25px #713cff55;  
+}  
+  
+.player-header {  
+    padding: 16px 20px;  
+    display: flex;  
+    justify-content: space-between;  
+    align-items: center;  
+    background: linear-gradient(90deg, #18122d, #11111f);  
+}  
+  
+.player-header h2 {  
+    color: #bd8aff;  
+    font-size: 20px;  
+    letter-spacing: 1px;  
+}  
+  
+.status {  
+    color: #a78bfa;  
+    font-size: 12px;  
+}  
+  
+.video-area {  
+    position: relative;  
+    background: black;  
+    width: 100%;  
+    aspect-ratio: 16 / 9;  
+}  
+  
+video {  
+    width: 100%;  
+    height: 100%;  
+    display: block;  
+    object-fit: contain;  
+}  
+  
+.video-area:fullscreen {  
+    width: 100%;  
+    height: 100%;  
+    aspect-ratio: auto;  
+    background: black;  
+}  
+  
+.video-area:fullscreen video {  
+    width: 100%;  
+    height: 100%;  
+}  
+  
+.big-play {  
+    position: absolute;  
+    top: 50%;  
+    left: 50%;  
+    transform: translate(-50%, -50%);  
+    border: none;  
+    background: #8b5cf6;  
+    color: white;  
+    width: 65px;  
+    height: 65px;  
+    border-radius: 50%;  
+    font-size: 27px;  
+    cursor: pointer;  
+    box-shadow: 0 0 25px #8b5cf6;  
+}  
+  
+.big-play.hidden {  
+    display: none;  
+}  
+  
+.controls {  
+    padding: 15px;  
+    background: #141421;  
+}  
+  
+.progress {  
+    width: 100%;  
+    accent-color: #a855f7;  
+    cursor: pointer;  
+    margin-bottom: 13px;  
+}  
+  
+.control-row {  
+    display: flex;  
+    align-items: center;  
+    justify-content: space-between;  
+    flex-wrap: wrap;  
+    gap: 12px;  
+}  
+  
+.left-controls,  
+.right-controls {  
+    display: flex;  
+    align-items: center;  
+    gap: 12px;  
+}  
+  
+button, select {  
+    border: none;  
+    cursor: pointer;  
+    color: white;  
+    background: #29243b;  
+    border-radius: 8px;  
+    padding: 9px 12px;  
+    font-size: 14px;  
+}  
+  
+button:hover, select:hover {  
+    background: #713cff;  
+}  
+  
+.time {  
+    font-size: 12px;  
+    color: #c4b5fd;  
+}  
+  
+select {  
+    outline: none;  
+}  
+  
+.upload-section {  
+    padding: 16px;  
+    text-align: center;  
+    border-top: 1px solid #30264a;  
+}  
+  
+.upload-section label {  
+    display: inline-block;  
+    background: linear-gradient(90deg, #7c3aed, #a855f7);  
+    padding: 11px 22px;  
+    border-radius: 9px;  
+    cursor: pointer;  
+    font-weight: bold;  
+}  
+  
+#videoUpload {  
+    display: none;  
+}  
+  
+.upload-section p {  
+    color: #aaa;  
+    font-size: 12px;  
+    margin-top: 10px;  
+}  
+  
+@media(max-width: 500px) {  
+    body {  
+        padding: 8px;  
+    }  
+  
+    .player-header h2 {  
+        font-size: 16px;  
+    }  
+  
+    .controls {  
+        padding: 10px;  
+    }  
+  
+    .control-row {  
+        gap: 10px;  
+    }  
+  
+    .left-controls, .right-controls {  
+        gap: 6px;  
+    }  
+  
+    button, select {  
+        padding: 8px;  
+        font-size: 12px;  
+    }  
+}  
+</style>  </head>  <body>  <div class="player-container">  <div class="player-header">  
+    <h2>⚡ ANIME PLAYER</h2>  
+    <span class="status">● ONLINE</span>  
+</div>  
+
+<div class="video-area" id="videoArea">  
+
+    <video id="video">  
+        Your browser does not support video.  
+    </video>  
+
+    <button class="big-play" id="bigPlay">▶</button>  
+
+</div>  
+
+<div class="controls">  
+
+    <input  
+        type="range"  
+        class="progress"  
+        id="progress"  
+        min="0"  
+        max="100"  
+        value="0"  
+    >  
+
+    <div class="control-row">  
+
+        <div class="left-controls">  
+
+            <button id="playBtn">▶</button>  
+
+            <button id="backBtn">⏪ 10</button>  
+
+            <button id="forwardBtn">10 ⏩</button>  
+
+            <span class="time" id="time">  
+                00:00 / 00:00  
+            </span>  
+
+        </div>  
+
+        <div class="right-controls">  
+
+            <select id="speed">  
+                <option value="0.5">0.5x</option>  
+                <option value="0.75">0.75x</option>  
+                <option value="1" selected>1x</option>  
+                <option value="1.25">1.25x</option>  
+                <option value="1.5">1.5x</option>  
+                <option value="2">2x</option>  
+            </select>  
+
+            <button id="muteBtn">🔊</button>  
+
+            <button id="fullscreenBtn">⛶</button>  
+
+        </div>  
+
+    </div>  
+
+</div>  
+
+<div class="upload-section">  
+
+    <label for="videoUpload">  
+        📁 Choose Anime Video  
+    </label>  
+
+    <input  
+        type="file"  
+        id="videoUpload"  
+        accept="video/mp4,video/webm,video/*"  
+    >  
+
+    <p>Select an MP4 video from your device</p>  
+
+</div>
+
+</div>  <script>  
+  
+const video = document.getElementById("video");  
+const videoArea = document.getElementById("videoArea");  
+  
+const playBtn = document.getElementById("playBtn");  
+const bigPlay = document.getElementById("bigPlay");  
+  
+const progress = document.getElementById("progress");  
+const time = document.getElementById("time");  
+  
+const backBtn = document.getElementById("backBtn");  
+const forwardBtn = document.getElementById("forwardBtn");  
+  
+const speed = document.getElementById("speed");  
+const muteBtn = document.getElementById("muteBtn");  
+  
+const fullscreenBtn =  
+document.getElementById("fullscreenBtn");  
+  
+const videoUpload =  
+document.getElementById("videoUpload");  
+  
+let currentURL = null;  
+  
+// Play and Pause  
+function togglePlay() {  
+  
+    if (video.paused) {  
+        video.play();  
+    } else {  
+        video.pause();  
+    }  
+  
+}  
+  
+playBtn.onclick = togglePlay;  
+bigPlay.onclick = togglePlay;  
+  
+// Video events  
+video.addEventListener("play", () => {  
+    playBtn.textContent = "⏸";  
+    bigPlay.classList.add("hidden");  
+});  
+  
+video.addEventListener("pause", () => {  
+    playBtn.textContent = "▶";  
+    bigPlay.classList.remove("hidden");  
+});  
+  
+video.addEventListener("ended", () => {  
+    playBtn.textContent = "▶";  
+});  
+  
+// Time formatting  
+function formatTime(seconds) {  
+  
+    if (!Number.isFinite(seconds)) return "00:00";  
+  
+    let min = Math.floor(seconds / 60);  
+    let sec = Math.floor(seconds % 60);  
+  
+    return String(min).padStart(2, "0")  
+        + ":" +  
+        String(sec).padStart(2, "0");  
+  
+}  
+  
+// Update progress  
+video.addEventListener("timeupdate", () => {  
+  
+    if (!video.duration) return;  
+  
+    progress.value =  
+        (video.currentTime / video.duration) * 100;  
+  
+    time.textContent =  
+        formatTime(video.currentTime)  
+        + " / " +  
+        formatTime(video.duration);  
+  
+});  
+  
+// Seek video  
+progress.addEventListener("input", () => {  
+  
+    if (video.duration) {  
+        video.currentTime =  
+            (progress.value / 100) * video.duration;  
+    }  
+  
+});  
+  
+// Forward and backward  
+backBtn.onclick = () => {  
+    video.currentTime = Math.max(0, video.currentTime - 10);  
+};  
+  
+forwardBtn.onclick = () => {  
+    video.currentTime = Math.min(  
+        video.duration || 0,  
+        video.currentTime + 10  
+    );  
+};  
+  
+// Volume  
+muteBtn.onclick = () => {  
+  
+    video.muted = !video.muted;  
+  
+    muteBtn.textContent =  
+        video.muted ? "🔇" : "🔊";  
+  
+};  
+  
+// Speed control  
+speed.onchange = () => {  
+    video.playbackRate = Number(speed.value);  
+};  
+  
+// Fullscreen  
+fullscreenBtn.onclick = async () => {  
+  
+    try {  
+        if (!document.fullscreenElement) {  
+            await videoArea.requestFullscreen();  
+        } else {  
+            await document.exitFullscreen();  
+        }  
+    } catch (error) {  
+        console.log("Fullscreen unavailable", error);  
+    }  
+  
+};  
+  
+// Upload video  
+videoUpload.onchange = (event) => {  
+  
+    const file = event.target.files[0];  
+  
+    if (!file) return;  
+  
+    if (currentURL) {  
+        URL.revokeObjectURL(currentURL);  
+    }  
+  
+    currentURL = URL.createObjectURL(file);  
+  
+    video.src = currentURL;  
+    video.load();  
+  
+    video.play().catch(() => {  
+        console.log("Press play to start video");  
+    });  
+  
+};  
+  
+// Keyboard controls  
+document.addEventListener("keydown", (event) => {  
+  
+    if (  
+        event.target.matches("input, select, textarea") ||  
+        event.target.isContentEditable  
+    ) return;  
+  
+    if (event.code === "Space") {  
+        event.preventDefault();  
+        togglePlay();  
+    }  
+  
+    if (event.code === "ArrowRight") {  
+        video.currentTime += 5;  
+    }  
+  
+    if (event.code === "ArrowLeft") {  
+        video.currentTime = Math.max(  
+            0, video.currentTime - 5  
+        );  
+    }  
+  
+    if (event.code === "KeyM") {  
+        muteBtn.click();  
+    }  
+  
+    if (event.code === "KeyF") {  
+        fullscreenBtn.click();  
+    }  
+  
+});  
+  
+</script>  </body>  
+</html>  
+Isko batao me kaha paste karu or ye kis chij ka code hai
